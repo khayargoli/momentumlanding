@@ -3,14 +3,29 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Building2, Dumbbell, Mail, MapPin, Phone, Users, CheckCircle2 } from "lucide-react";
+import {Dumbbell, Mail, MapPin, Phone, CheckCircle2 } from "lucide-react";
 import { Helmet } from "react-helmet-async";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 function App() {
   const [showContactForm, setShowContactForm] = useState(false);
+  const [selectedImage, setSelectedImage] = useState("");
 
   return (
     <>
+
+      {/* Dialog for Image Popup */}
+      <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage("")}>
+        <DialogContent className="max-w-7xl">
+          {selectedImage && (
+            <img
+              src={selectedImage}
+              alt="Selected image"
+              className="w-full h-auto rounded-lg"
+            />
+          )}
+        </DialogContent>
+      </Dialog>
       <Helmet>
         <script type="application/ld+json">
           {JSON.stringify({
@@ -52,7 +67,7 @@ function App() {
           <div className="container mx-auto px-4 relative z-10">
             <div className="flex flex-col items-center text-center">
               <div className="flex items-center gap-2 mb-6">
-                <Dumbbell className="h-10 w-10 text-primary" aria-hidden="true" />
+                <Dumbbell className="h-10 w-10 text-white" aria-hidden="true" />
                 <h1 className="text-4xl font-bold text-foreground">Momentum Nepal</h1>
               </div>
               <p className="text-xl text-foreground max-w-2xl mb-8">
@@ -101,7 +116,7 @@ function App() {
                     <ul className="space-y-3">
                       {plan.features.map((feature) => (
                         <li key={feature} className="flex items-center gap-2">
-                          <CheckCircle2 className="h-5 w-5 text-primary" />
+                          <CheckCircle2 className="h-5 w-5 text-white" />
                           <span>{feature}</span>
                         </li>
                       ))}
@@ -117,23 +132,23 @@ function App() {
         </section>
 
         {/* Gallery Section */}
-        <section className="py-20 bg-[hsl(var(--delftblue))]">
+        <section className="py-10 bg-[hsl(var(--delftblue))]">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-center mb-12 text-white">Gallery</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {[
-                "https://images.unsplash.com/photo-1534438327276-14e5300c3a48",
-                "https://images.unsplash.com/photo-1576678927484-cc907957088c",
-                "https://images.unsplash.com/photo-1540497077202-7c8a3999166f",
-                "https://images.unsplash.com/photo-1517963879433-6ad2b056d712",
-                "https://images.unsplash.com/photo-1571902943202-507ec2618e8f",
-                "https://images.unsplash.com/photo-1591291621164-2c6367723315"
+                "./public/1.png",
+                "./public/6.jpg",
+                "./public/3.png",
+                "./public/4.png",
+                "./public/2.png",
+                "./public/5.png"
               ].map((image, index) => (
-                <div key={index} className="aspect-video relative overflow-hidden rounded-lg">
+                <div key={index} className="aspect-video relative overflow-hidden rounded-lg p-2"  onClick={() => setSelectedImage(image)}>
                   <img
-                    src={`${image}?w=600&h=400&fit=crop`}
+                    src={`${image}`}
                     alt={`Gallery image ${index + 1}`}
-                    className="object-cover w-full h-full hover:scale-105 transition-transform duration-300"
+                    className="object-cover w-full h-full hover:scale-150 transition-transform duration-300"
                   />
                 </div>
               ))}
@@ -178,7 +193,7 @@ function App() {
         )}
 
         {/* Contact Information */}
-        <section className="py-20 bg-secondary/50">
+        <section className="py-10 bg-secondary/50">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-center mb-12 text-secondary-foreground">Contact Us</h2>
             <div className="grid md:grid-cols-3 gap-8">
@@ -191,7 +206,7 @@ function App() {
                 </CardHeader>
                 <CardContent>
                   <p>+977 9860308415</p>
-                  <p>+977 9849640930</p>
+                  <p></p>
                 </CardContent>
 
               </Card>
