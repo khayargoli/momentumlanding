@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --black: 220, 16%, 10%, 1 ;
+    --delftblue: 207, 40%, 19%, 1;
+    --ucla: 197, 32%, 40%, 1;
+    --powderblue: 210, 27%, 61%, 1;
+    --mintgreen: 167, 72%, 85%, 1;
+    --white: 0, 0%, 100%, 1;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: var(--mintgreen);
+    --foreground: var(--white);
+    --card: var(--black);
+    --card-foreground: var(--white);
+    --popover: var(--dark-green);
+    --popover-foreground: var(--mintgreen);
+    --primary: var(--delftblue);
+    --primary-foreground: var(--white);
+    --secondary: var(--pakistan-green);
+    --secondary-foreground: var(--black);
+    --muted: var(--pakistan-green);
+    --muted-foreground: var(--black);
+    --accent: var(--white);
+    --accent-foreground: var(--white);
+    --destructive: var(--dark-green);
+    --destructive-foreground: var(--black);
+    --border: var(--pakistan-green);
+    --input: var(--pakistan-green);
+    --ring: var(--malachite);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
