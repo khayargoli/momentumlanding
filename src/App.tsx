@@ -137,12 +137,12 @@ function App() {
             <h2 className="text-3xl font-bold text-center mb-12 text-white">Gallery</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {[
-                "./public/1.png",
-                "./public/6.jpg",
-                "./public/3.png",
-                "./public/4.png",
-                "./public/2.png",
-                "./public/5.png"
+                "/1.png",
+                "/6.jpg",
+                "/3.png",
+                "/4.png",
+                "/2.png",
+                "/5.png"
               ].map((image, index) => (
                 <div key={index} className="aspect-video relative overflow-hidden rounded-lg p-2"  onClick={() => setSelectedImage(image)}>
                   <img
