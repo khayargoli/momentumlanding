@@ -3,13 +3,49 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import {Dumbbell, Mail, MapPin, Phone, CheckCircle2 } from "lucide-react";
+import { Mail, MapPin, Phone, CheckCircle2 } from "lucide-react";
 import { Helmet } from "react-helmet-async";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 function App() {
   const [showContactForm, setShowContactForm] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: ''
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [id]: value
+    }));
+  };
+
+  const sendEmail = async () => {
+    try {
+      const response = await fetch('/.netlify/functions/sendEmail', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        alert('Thank you for contacting us! We will reach out to you soon.');
+        setShowContactForm(false);
+      } else {
+        alert('Failed to send email.');
+      }
+    } catch (error) {
+      console.error('Error sending email:', error);
+      alert('An error occurred while sending the email.');
+    }
+  };
 
   return (
     <>
@@ -26,6 +62,7 @@ function App() {
           )}
         </DialogContent>
       </Dialog>
+
       <Helmet>
         <script type="application/ld+json">
           {JSON.stringify({
@@ -50,6 +87,7 @@ function App() {
           })}
         </script>
       </Helmet>
+
       <div className="min-h-screen bg-background dark">
         {/* Hero Section */}
         <header className="relative py-24 overflow-hidden">
@@ -67,12 +105,15 @@ function App() {
           <div className="container mx-auto px-4 relative z-10">
             <div className="flex flex-col items-center text-center">
               <div className="flex items-center gap-2 mb-6">
-                <Dumbbell className="h-10 w-10 text-white" aria-hidden="true" />
-                <h1 className="text-4xl font-bold text-foreground">Momentum Nepal</h1>
+                {/* <Dumbbell className="h-10 w-10 text-white" aria-hidden="true" />
+                <h1 className="text-4xl font-bold text-foreground">Momentum Nepal</h1> */}
+                <div className="flex rounded-md bg-slate-200 p-[2px]">
+                  <img src={'/logo.png'} alt="logo" width={200} height={50} className="m-auto" />
+                </div>
               </div>
-              <p className="text-xl text-foreground max-w-2xl mb-8">
-                Streamline your gym operations with Nepal's leading gym management system.
-                Empower your fitness business with our comprehensive solution.
+              <p className="text-xl text-foreground max-w-2xl mb-8 text-center">
+                Make gym management easy with Nepal's leading gym management system. Track attendance, send payment reminders, and manage everything with a simple dashboard. From member management to payments, our system handles it all.
+                <br /><br />Join gyms across Nepal that trust us to save time and grow their business!
               </p>
               <Button size="lg" className="text-lg" onClick={() => setShowContactForm(true)}>
                 Get Demo
@@ -82,7 +123,7 @@ function App() {
         </header>
 
         {/* Pricing Section */}
-        <section className="py-20 bg-secondary/50">
+        <section className="py-10 bg-secondary/50">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-center mb-12 text-secondary-foreground">Simple, Transparent Pricing</h2>
             <div className="grid md:grid-cols-3 gap-8">
@@ -137,22 +178,32 @@ function App() {
             <h2 className="text-3xl font-bold text-center mb-12 text-white">Gallery</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {[
-                "/1.png",
-                "/6.jpg",
-                "/3.png",
-                "/4.png",
-                "/2.png",
-                "/5.png"
-              ].map((image, index) => (
-                <div key={index} className="aspect-video relative overflow-hidden rounded-lg p-2"  onClick={() => setSelectedImage(image)}>
+                { src: "/1.png", text: "Dashboard" },
+                { src: "/6.jpg", text: "Member Enrollment" },
+                { src: "/7.jpg", text: "Payment Reminder" },
+                { src: "/3.png", text: "Attendance Tracking" },
+                { src: "/6.jpg", text: "Subscription Renewal" },
+                { src: "/4.png", text: "Payment Tracking" },
+              ].map((item, index) => (
+                <div
+                  key={index}
+                  className="aspect-video relative overflow-hidden rounded-lg p-2 cursor-pointer  hover:scale-110 transition-transform duration-300"
+                  onClick={() => setSelectedImage(item.src)}
+                >
                   <img
-                    src={`${image}`}
+                    src={item.src}
                     alt={`Gallery image ${index + 1}`}
-                    className="object-cover w-full h-full hover:scale-150 transition-transform duration-300"
+                    className="object-cover w-full h-full"
                   />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="text-primary-foreground font-bold text-lg bg-black/80 px-3 py-1 rounded">
+                      {item.text}
+                    </span>
+                  </div>
                 </div>
               ))}
             </div>
+
           </div>
         </section>
 
@@ -168,25 +219,25 @@ function App() {
                 <form className="space-y-4">
                   <div className="space-y-2">
                     <label htmlFor="name">Name</label>
-                    <Input id="name" placeholder="Your name" />
+                    <Input id="name" placeholder="Your name" value={formData.name} onChange={handleInputChange} />
                   </div>
                   <div className="space-y-2">
                     <label htmlFor="email">Email</label>
-                    <Input id="email" type="email" placeholder="your@email.com" />
+                    <Input id="email" type="email" placeholder="your@email.com" value={formData.email} onChange={handleInputChange} />
                   </div>
                   <div className="space-y-2">
                     <label htmlFor="phone">Phone</label>
-                    <Input id="phone" placeholder="Your phone number" />
+                    <Input id="phone" placeholder="Your phone number" value={formData.phone} onChange={handleInputChange} />
                   </div>
                   <div className="space-y-2">
                     <label htmlFor="message">Message</label>
-                    <Textarea id="message" placeholder="Tell us about your gym..." />
+                    <Textarea id="message" placeholder="Tell us about your gym..." value={formData.message} onChange={handleInputChange} />
                   </div>
                 </form>
               </CardContent>
               <CardFooter className="flex gap-2">
                 <Button onClick={() => setShowContactForm(false)}>Cancel</Button>
-                <Button>Send Message</Button>
+                <Button onClick={sendEmail}>Send Message</Button>
               </CardFooter>
             </Card>
           </div>
@@ -236,6 +287,12 @@ function App() {
               </Card>
             </div>
           </div>
+        </section>
+        <section className="py-10 bg-[hsl(var(--delftblue))]">
+          <footer className="text-white text-center">
+            <p>Momentum &copy; 2025 | All Rights Reserved</p>
+          
+          </footer>
         </section>
       </div>
     </>
