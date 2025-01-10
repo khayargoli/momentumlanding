@@ -226,7 +226,7 @@ function App() {
               {[
                 { src: "/1.png", text: "Dashboard" },
                 { src: "/6.jpg", text: "Member Enrollment" },
-                { src: "/7.jpg", text: "Payment Reminder" },
+                { src: "/8.jpg", text: "Payment Reminder" },
                 { src: "/3.png", text: "Attendance Tracking" },
                 { src: "/6.jpg", text: "Subscription Renewal" },
                 { src: "/4.png", text: "Payment Tracking" },
