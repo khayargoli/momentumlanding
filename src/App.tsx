@@ -16,6 +16,12 @@ function App() {
     phone: '',
     message: ''
   });
+  const [errors, setErrors] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: ''
+  });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
@@ -23,9 +29,47 @@ function App() {
       ...prevState,
       [id]: value
     }));
+    setErrors(prevState => ({
+      ...prevState,
+      [id]: '' // Clear error message on input change
+    }));
+  };
+
+  const validateForm = () => {
+    const { name, email, phone, message } = formData;
+    const newErrors = { name: '', email: '', phone: '', message: '' };
+    let isValid = true;
+
+    if (!name) {
+      newErrors.name = 'Name is required.';
+      isValid = false;
+    }
+    if (!email) {
+      newErrors.email = 'Email is required.';
+      isValid = false;
+    } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+      newErrors.email = 'Please enter a valid email address.';
+      isValid = false;
+    }
+    if (!phone) {
+      newErrors.phone = 'Phone number is required.';
+      isValid = false;
+    } else if (!/^\d{10}$/.test(phone)) {
+      newErrors.phone = 'Phone number must be 10 digits.';
+      isValid = false;
+    }
+    if (!message) {
+      newErrors.message = 'Message is required.';
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
   };
 
   const sendEmail = async () => {
+    if (!validateForm()) return;
+
     try {
       const response = await fetch('/.netlify/functions/sendEmail', {
         method: 'POST',
@@ -111,8 +155,10 @@ function App() {
                   <img src={'/logo.png'} alt="logo" width={200} height={50} className="m-auto" />
                 </div>
               </div>
-              <p className="text-xl text-foreground max-w-2xl mb-8 text-center">
-                Make gym management easy with Nepal's leading gym management system. Track attendance, send payment reminders, and manage everything with a simple dashboard. From member management to payments, our system handles it all.
+              <p className="text-xl text-foreground max-w-4xl mb-8 text-center">
+                Make gym management easy with Nepal's leading gym management system.
+                <br/>Track attendance, send payment reminders, and manage everything with a simple dashboard.
+                <br/>From member management to payments, our system handles it all.
                 <br /><br />Join gyms across Nepal that trust us to save time and grow their business!
               </p>
               <Button size="lg" className="text-lg" onClick={() => setShowContactForm(true)}>
@@ -220,18 +266,22 @@ function App() {
                   <div className="space-y-2">
                     <label htmlFor="name">Name</label>
                     <Input id="name" placeholder="Your name" value={formData.name} onChange={handleInputChange} />
+                    {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
                   </div>
                   <div className="space-y-2">
                     <label htmlFor="email">Email</label>
                     <Input id="email" type="email" placeholder="your@email.com" value={formData.email} onChange={handleInputChange} />
+                    {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
                   </div>
                   <div className="space-y-2">
                     <label htmlFor="phone">Phone</label>
                     <Input id="phone" placeholder="Your phone number" value={formData.phone} onChange={handleInputChange} />
+                    {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
                   </div>
                   <div className="space-y-2">
                     <label htmlFor="message">Message</label>
                     <Textarea id="message" placeholder="Tell us about your gym..." value={formData.message} onChange={handleInputChange} />
+                    {errors.message && <p className="text-red-500 text-sm">{errors.message}</p>}
                   </div>
                 </form>
               </CardContent>
@@ -257,7 +307,7 @@ function App() {
                 </CardHeader>
                 <CardContent>
                   <p>+977 9860308415</p>
-                  <p></p>
+                  <p>+977 9860308415</p>
                 </CardContent>
 
               </Card>
@@ -291,7 +341,6 @@ function App() {
         <section className="py-10 bg-[hsl(var(--delftblue))]">
           <footer className="text-white text-center">
             <p>Momentum &copy; 2025 | All Rights Reserved</p>
-          
           </footer>
         </section>
       </div>
