@@ -162,7 +162,7 @@ function App() {
                 <br /><br />Join gyms across Nepal that trust us to save time and grow their business!
               </p>
               <Button size="lg" className="text-lg" onClick={() => setShowContactForm(true)}>
-                Get Demo
+                Free Demo
               </Button>
             </div>
           </div>
@@ -176,13 +176,13 @@ function App() {
               {[
                 {
                   title: "Starter",
-                  price: "NPR 2,999",
+                  price: "NPR 1,499",
                   description: "Perfect for small gyms",
                   features: ["Up to 100 members", "Basic reporting", "Email notifiction", "Email support", "Quick Trial", "Guided Installation"]
                 },
                 {
                   title: "Professional",
-                  price: "NPR 3,999",
+                  price: "NPR 2,499",
                   description: "Ideal for growing facilities",
                   features: ["Up to 500 members", "Advanced analytics", "WhatsApp notification", "Email notification", "Priority support", "Custom branding"]
                 },
