@@ -80,7 +80,7 @@ function App() {
       });
 
       if (response.ok) {
-        alert('Thank you for contacting us! We will reach out to you soon.');
+        alert('Thank you for contacting us! We will reach out to you withing 24hrs via email or phone.');
         setShowContactForm(false);
       } else {
         alert('Failed to send email.');
@@ -156,9 +156,9 @@ function App() {
                 </div>
               </div>
               <p className="text-xl text-foreground max-w-4xl mb-8 text-center">
-                Make gym management easy with Nepal's leading gym management system.
-                <br/>Track attendance, send payment reminders, and manage everything with a simple dashboard.
-                <br/>From member management to payments, our system handles it all.
+                Make gym management easy with Momentum's gym management system.
+                <br />Track attendance, send payment reminders, and manage everything with a simple dashboard.
+                <br />From member management to payments, our system handles it all.
                 <br /><br />Join gyms across Nepal that trust us to save time and grow their business!
               </p>
               <Button size="lg" className="text-lg" onClick={() => setShowContactForm(true)}>
@@ -178,19 +178,19 @@ function App() {
                   title: "Starter",
                   price: "NPR 2,999",
                   description: "Perfect for small gyms",
-                  features: ["Up to 100 members", "Basic reporting", "Email support", "Member portal"]
+                  features: ["Up to 100 members", "Basic reporting", "Email notifiction", "Email support", "Quick Trial", "Guided Installation"]
                 },
                 {
                   title: "Professional",
                   price: "NPR 3,999",
                   description: "Ideal for growing facilities",
-                  features: ["Up to 500 members", "Advanced analytics", "Priority support", "Custom branding"]
+                  features: ["Up to 500 members", "Advanced analytics", "WhatsApp notification", "Email notification", "Priority support", "Custom branding"]
                 },
                 {
                   title: "Enterprise",
                   price: "NPR 4,999",
                   description: "For large-scale operations",
-                  features: ["Unlimited members", "Custom reporting", "24/7 support", "API access"]
+                  features: ["Unlimited members", "Custom reporting", "Advanced analytics", "WhatsApp notification", "Email notification", "24/7 support"]
                 }
               ].map((plan) => (
                 <Card key={plan.title} className="relative">
@@ -306,10 +306,19 @@ function App() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p>+977 9860308415</p>
-                  <p>+977 9860308415</p>
+                  <p>+977-9860308415</p>
                 </CardContent>
-
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Mail className="h-5 w-5" />
+                    Email
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p>momentuminnepal@gmail.com</p>
+                </CardContent>
               </Card>
               <Card>
                 <CardHeader>
@@ -323,18 +332,7 @@ function App() {
                   <p>Kathmandu, Nepal</p>
                 </CardContent>
               </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Mail className="h-5 w-5" />
-                    Email
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p>info@momentumnepal.com</p>
-                  <p>support@momentumnepal.com</p>
-                </CardContent>
-              </Card>
+
             </div>
           </div>
         </section>
