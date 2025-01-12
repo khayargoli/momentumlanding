@@ -228,7 +228,7 @@ function App() {
                 { src: "/6.jpg", text: "Member Enrollment" },
                 { src: "/8.jpg", text: "Payment Reminder" },
                 { src: "/3.png", text: "Attendance Tracking" },
-                { src: "/5.jpg", text: "Subscription Renewal" },
+                { src: "/5.png", text: "Subscription Renewal" },
                 { src: "/4.png", text: "Payment Tracking" },
               ].map((item, index) => (
                 <div
