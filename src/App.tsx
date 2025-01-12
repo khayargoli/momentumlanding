@@ -3,9 +3,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, MapPin, Phone, CheckCircle2 } from "lucide-react";
+import { Mail, MapPin, Phone, CheckCircle2, Heart, Info } from "lucide-react";
 import { Helmet } from "react-helmet-async";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { SocialIcon } from 'react-social-icons/component'
+import 'react-social-icons/instagram';
+import 'react-social-icons/whatsapp';
 
 function App() {
   const [showContactForm, setShowContactForm] = useState(false);
@@ -300,29 +303,44 @@ function App() {
             <div className="grid md:grid-cols-3 gap-8">
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Phone className="h-5 w-5" />
-                    Phone
+                  <CardTitle className="flex items-center gap-2 m-auto">
+                    <Heart className="h-5 w-5" />Socials
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p>+977-9860308415</p>
+                  <div className="flex items-center gap-2">
+                    <a href="https://wa.me/9779860308415" target="_blank" rel="noopener noreferrer" className="flex items-center">
+                      <SocialIcon network="whatsapp" bgColor="transparent" className="h-5 w-5" />
+                      <span>WhatsApp</span>
+                    </a>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <a href="https://instagram.com/momentumnepal" target="_blank" rel="noopener noreferrer" className="flex items-center">
+                      <SocialIcon network="instagram" bgColor="transparent" className="h-5 w-5" />
+                      <span>Instagram</span>
+                    </a>
+                  </div>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Mail className="h-5 w-5" />
-                    Email
+                  <CardTitle className="flex items-center gap-2  m-auto">
+                   <Info  className="h-5 w-5" /> Other
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p>momentuminnepal@gmail.com</p>
+                  <div className="flex align-middle items-center">
+                    <Mail className="h-5 w-5 inline" />&nbsp;Email:&nbsp;<a href="mailto:momentuminnepal@gmail.com" className="text-blue-500 hover:underline">momentuminnepal@gmail.com</a>
+                  </div>
+                  <br />
+                  <div className="flex align-middle items-center">
+                    <p><Phone className="h-5 w-5 inline" /> Phone: &nbsp;<a href="tel:+9779860308415" className="text-blue-500 hover:underline">+977-9860308415</a></p>
+                  </div>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
+                  <CardTitle className="flex items-center gap-2  m-auto">
                     <MapPin className="h-5 w-5" />
                     Address
                   </CardTitle>
